@@ -10,3 +10,13 @@
 h1 {
     font-size: 12px;
 }
+
+.well {
+    margin-top:20%;
+    text-align: center;
+    height: 200px;
+}
+
+.city {
+    width: 100%;
+}

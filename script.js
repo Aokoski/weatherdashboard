@@ -87,3 +87,10 @@ function uvIndex(lat,lon){
 
       // Calling the renderButtons function at least once to display the initial list of movies
       renderButtons();
+
+    //function forecast(){
+                
+
+    
+
+  
