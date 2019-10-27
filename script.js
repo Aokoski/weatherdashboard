@@ -89,8 +89,10 @@ function uvIndex(lat,lon){
       renderButtons();
 
     //function forecast(){
-                
 
-    
-
-  
+               
+localStorage.getItem("cities");
+localStorage.setItem("storeObject",JSON.stringify(cities));
+var storeObject = localStorage.getItem('cities');
+console.log("storeObject")
+var getObject = JSON.parse(localStorage.getItem('storeObj'));  
