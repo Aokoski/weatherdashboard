@@ -18,7 +18,7 @@
     $(".city").html("<h1>" + response.name + " Weather Details</h1>");
     $(".wind").text("Wind Speed: " + response.wind.speed);
     $(".humidity").text("Humidity: " + response.main.humidity);
-    $(".temp").text("Temperature (F) " + response.main.temp );
+    $(".temp").text(((response.main.temp - 273.15) * 1.80 + 32).toFixed(0) + "Fahrenheit");
     $(".uvIndex").text("uvIndex:" + response.coord.value);
 
     uvIndex(response.coord.lat,response.coord.lon);
