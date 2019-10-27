@@ -4,7 +4,7 @@
   $("button").on("click",function(){
     let inputText = $("input").val()
     var APIKey = "a70a72d7bf38c63dccd71c306a1c86a4";
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+inputText + "&apikey=" + APIKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+inputText + "&units=imperial&appid=" + "&apikey=" + APIKey;
 
     console.log(inputText);
     $.ajax({
@@ -18,7 +18,7 @@
     $(".city").html("<h1>" + response.name + " Weather Details</h1>");
     $(".wind").text("Wind Speed: " + response.wind.speed);
     $(".humidity").text("Humidity: " + response.main.humidity);
-    $(".temp").text(((response.main.temp - 273.15) * 1.80 + 32).toFixed(0) + "Fahrenheit");
+    $(".temp").text("Temperature (F) " + response.main.temp);
     $(".uvIndex").text("uvIndex:" + response.coord.value);
 
     uvIndex(response.coord.lat,response.coord.lon);
