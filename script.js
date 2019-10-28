@@ -44,14 +44,18 @@ function uvIndex(lat,lon){
         })
 }
       // Initial array of movies
-      var cities = [cities];
+      var cities = [];
 
+      if (localStorage.getItem("cities")) {
+        cities = JSON.parse(localStorage.getItem("cities"));
+      }
       // Function for displaying movie data
       function renderButtons() {
 
         // Deleting the movie buttons prior to adding new movie buttons
         // (this is necessary otherwise we will have repeat buttons)
         $("#buttons-view").empty();
+     
 
         // Looping through the array of movies
         for (var i = 0; i < cities.length; i++) {
@@ -61,9 +65,9 @@ function uvIndex(lat,lon){
           var a = $("<button>");
           // Adding a class
           a.addClass("city");
-          // Adding a data-attribute with a value of the movie at index i
+          // Adding a data-attribute with a value of the city at index i
           a.attr("data-name", cities[i]);
-          // Providing the button's text with a value of the movie at index i
+          // Providing the button's text with a value of the city at index i
           a.text(cities[i]);
           // Adding the button to the HTML
           $("#buttons-view").append(a);
@@ -91,8 +95,3 @@ function uvIndex(lat,lon){
     //function forecast(){
 
                
-localStorage.getItem("cities");
-localStorage.setItem("storeObject",JSON.stringify(cities));
-var storeObject = localStorage.getItem('cities');
-console.log("storeObject")
-var getObject = JSON.parse(localStorage.getItem('storeObj'));  
