@@ -1,12 +1,17 @@
 
-
+function makeRow(text) {
+  var li = $("<li>").addClass("list-group-item list-group-item-action").text(text);
+  $(".history").append(li);
+}
 
   $("button").on("click",function(){
     let inputText = $("input").val()
     var APIKey = "a70a72d7bf38c63dccd71c306a1c86a4";
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+inputText + "&units=imperial&appid=" + "&apikey=" + APIKey;
 
-    console.log(inputText);
+    localStorage.setItem("history", JSON.stringify(inputText));
+
+    $("#buttons-view").val(localStorage.getItem(inputText));
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -22,7 +27,9 @@
     $(".uvIndex").text("uvIndex:" + response.coord.value);
 
     uvIndex(response.coord.lat,response.coord.lon);
-    console.log(response);
+    forecast(inputText);
+    
+
     
         })
     
@@ -38,7 +45,7 @@ function uvIndex(lat,lon){
       })
         // We store all of the retrieved data inside of an object called "response"
         .then(function(response) {
-            console.log(response);
+     
             $(".uvIndex").text("uvIndex:" + response.value);
 
         })
@@ -94,4 +101,43 @@ function uvIndex(lat,lon){
 
     //function forecast(){
 
-               
+    function  forecast(cityName){
+     
+      var appid= "a70a72d7bf38c63dccd71c306a1c86a4";
+      var queryURL = `http://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${appid}`
+      
+  
+      $.ajax({
+          url: queryURL,
+          method: "GET"
+        })
+          // We store all of the retrieved data inside of an object called "response"
+          .then(function(response) {
+             
+              for (var i = 0; i < 5; i++){
+                var col = $("<div>").addClass("col-md-2")
+                var card = $("<div>").addClass('card bg-primary text-white');
+                var body = $("<div>").addClass("card-body p-2");
+
+                var title = $("<h2>").addClass("card-title").text(response.list[i].dt_txt);
+
+                var img = $("<img>").attr("src", "http://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
+                var p1 = $("<p>").addClass("card-text").text("Temp: " + response.list[i].main.temp_max + " °F");
+                var p2 = $("<p>").addClass("card-text").text("Humidity: " + response.list[i].main.humidity + "%");
+                col.append(card.append(body.append(title, img, p1, p2)));
+                $(".well").append(col);
+        
+              }
+              
+  
+          })
+  
+    }    
+
+    var history = JSON.parse(window.localStorage.getItem("history")) || [];
+
+    
+  for (var i = 0; i < history.length; i++){
+    makeRow(localStorage.getItem("history"));
+  }
+
